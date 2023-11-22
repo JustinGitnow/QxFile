@@ -1,0 +1,169 @@
+# Justin自用的QX配置文件 
+# 该文件基于 https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/QuantumultX.conf
+# 2023年11月23日
+#
+# Quantumult 使用 HTTP HEAD 方法对测试网址 server_check_url 进行网页响应性测试（测试结果为通过该节点访问此网页获得 HTTP 响应所需要的时间），来确认节点的可用性
+# Quantumult 界面中的延迟测试方式均为网页响应性测试，显示的最终延迟均为通过对应节点访问测试网页获得 HTTP 响应所需要时间
+# 由于 Trojan 协议为无响应校验协议，使得 HTTP 检测方式即使获得了 HTTP 响应，也不代表节点一定可用
+
+[general]
+# 网络测试链接
+network_check_url = http://www.apple.com/generate_204
+# 服务器测试链接
+server_check_url = http://www.gstatic.com/generate_204
+# 服务器测试超时时间 (毫秒)
+server_check_timeout = 3000
+# 如需识别节点地区为中文和显示国旗，请取消下面 geo_location_checker 前的 ; 备注
+;geo_location_checker = http://ip-api.com/json/?lang=zh-CN, https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/IP_API.js
+# > 第一个filter为4g模式开启规则分流，第二个filter为其他wifi下开启规则分流，第三个wifi1修改成你路由器翻墙的wifi名开启直连模式，第四个wifi2为你公司或者其他有路由器翻墙的WiFi名走直连）
+# > 默认关闭根据wifi切换模式，如需开启，删除下方的"#"即可
+#running_mode_trigger=filter, filter, wifi1:all_direct, wifi2: all_direct
+# 不使用 fakeip 映射
+dns_exclusion_list=*.cmbchina.com
+# 资源解析器
+resource_parser_url = https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/resource-parser.js
+
+
+[dns]
+
+no-ipv6
+server=1.0.0.1
+server=8.8.8.8
+server=119.29.29.29
+server=223.5.5.5
+server=1.2.4.8
+server=/*.taobao.com/223.5.5.5
+server=/*.tmall.com/223.5.5.5
+server=/*.alipay.com/223.5.5.5
+server=/*.alicdn.com/223.5.5.5
+server=/*.aliyun.com/223.5.5.5
+server=/*.jd.com/119.28.28.28
+server=/*.qq.com/119.28.28.28
+server=/*.tencent.com/119.28.28.28
+server=/*.weixin.com/119.28.28.28
+server=/*.bilibili.com/119.29.29.29
+server=/hdslb.com/119.29.29.29
+server=/*.163.com/119.29.29.29
+server=/*.126.com/119.29.29.29
+server=/*.126.net/119.29.29.29
+server=/*.127.net/119.29.29.29
+server=/*.netease.com/119.29.29.29
+server=/*.mi.com/119.29.29.29
+server=/*.xiaomi.com/119.29.29.29
+address=/mtalk.google.com/108.177.125.188
+no-system
+circumvent-ipv4-answer = 127.0.0.1, 0.0.0.0
+
+[policy]
+## 策略组，将分流规则传递过来的网络请求进行分发
+# 服务器按地区分组策略
+
+# 美国
+static=US, server-tag-regex=America, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/US.png
+# 香港
+static=HK, server-tag-regex=Hongkong, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/HK.png
+# 日本
+static= JP, server-tag-regex=Japan, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/JP.png
+# 欧洲
+static=EU, server-tag-regex=France|Germany|Netherlands|Kingdom|, img-url=https://raw.githubusercontent.com/JustinGitnow/Icon/main/EU.png
+
+
+
+# 其中 CMedia 策略组为中国媒体，GMedia 为国际媒体，Outside 为境外链接，Mainland 为大陆链接，Others 为最终规则
+# 默认注释网易云音乐（包含在 CMedia 内）、Apple Music/Netflix/Disney Plus/Spotify/YouTube（包含在 GMedia 内）、ChatGPT/TikTok/Telegram/PayPal（包含在 Outside 内）、微软（包含在 Mainland 内）策略组，如需使用请取消 ; 注释
+# 必须策略
+static = AdBlock, reject, direct, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Advertising.png
+static = Outside, Hong Kong, Taiwan, Japan, Korea, United States, Singapore, direct, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Global.png
+static = Mainland, direct, Outside, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Domestic.png
+static = Apple, direct, Outside, Hong Kong, United States, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Apple.png
+static = CMedia, Mainland, Outside, direct, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/StreamingCN.png
+static = GMedia, Outside, Hong Kong, Taiwan, Japan, Korea, United States, Singapore, direct, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Streaming.png
+# 可选策略
+;static = Apple Music, GMedia, United States, Hong Kong, Japan, direct, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Apple_Music.png
+;static = Disney+, GMedia, Singapore, Hong Kong, Taiwan, United States, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Disney.png
+;static = Netflix, GMedia, Singapore, Hong Kong, Taiwan, United States, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png
+;static = Spotify, GMedia, Singapore, Hong Kong, Taiwan, United States, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Spotify.png
+;static = YouTube, GMedia, Singapore, Hong Kong, Taiwan, United States, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube.png
+;static = Netease Music, CMedia, direct, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netease_Music.png
+;static = ChatGPT, Outside, United States, Taiwan, Japan, Korea, img-url=https://fastly.jsdelivr.net/gh/GeQ1an/Rules@master/Images/Icons/Policies/OpenAI.png
+;static = TikTok, Outside, Japan, Korea, Taiwan, United States, direct, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/TikTok.png
+;static = Telegram, Outside, direct, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Telegram_X.png
+;static = Microsoft, direct, Outside, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Microsoft.png
+;static = PayPal, Outside, direct, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/PayPal.png
+# 必须策略
+static = Speedtest, direct, Hong Kong, Taiwan, Singapore, Japan, Korea, United States, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Speedtest.png
+static = Others, Outside, direct, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png
+# 节点策略。若机场不包含下方所有国家/地区节点，请删除不包含的部分，并删除上方对应国家/地区策略名
+available = Hong Kong, server-tag-regex=香港|Hong Kong|HK|hk, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Hong_Kong.png
+available = Singapore, server-tag-regex=新加坡|Singapore|SG|sg, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Singapore.png
+available = Taiwan, server-tag-regex=台湾|Taiwan|TW|tw|台北, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Taiwan.png
+available = United States, server-tag-regex=美国|United States|US|us, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/United_States.png
+available = Japan, server-tag-regex=日本|Japan|JP|jp, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Japan.png
+available = Korea, server-tag-regex=韩国|Korea|KR|kr, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Korea.png
+
+[server_remote]
+# 删掉“订阅连接”四字，粘贴 SS/SSR/V2Ray 订阅或 Quantumult X 专用订阅，“我的订阅”表示自定义订阅标签，可随意更改
+订阅链接, tag=我的订阅, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/CrossWall.png, update-interval=43200, opt-parser=true, enabled=true
+
+[filter_remote]
+# 默认不启用网易云音乐（包含在 CMedia 内）、Apple Music/Netflix/Disney Plus/Spotify/YouTube（包含在 GMedia 内）、ChatGPT/TikTok/Telegram/PayPal（包含在 Outside 内）、微软（包含在 Mainland 内）规则，如需使用请修改 false 为 true，对于完全不需要的规则，删除即可
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/Special.list, tag=Special (Stick Rules), update-interval=43200, enabled=true
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/AdBlock.list, tag=AdBlock (Stick Rules), update-interval=43200, enabled=true
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/Optional/Netease%20Music.list, tag=Netease Music (Stick Rules), update-interval=43200, enabled=false
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/CMedia.list, tag=CMedia (Stick Rules), update-interval=43200, enabled=true
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/Optional/Apple%20Music.list, tag=Apple Music (Stick Rules), update-interval=43200, enabled=false
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/Optional/Disney%20Plus.list, tag=Disney+ (Stick Rules), update-interval=43200, enabled=false
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/Optional/Netflix.list, tag=Netflix (Stick Rules), update-interval=43200, enabled=false
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/Optional/Spotify.list, tag=Spotify (Stick Rules), update-interval=43200, enabled=false
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/Optional/YouTube.list, tag=YouTube (Stick Rules), update-interval=43200, enabled=false
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/GMedia.list, tag=GMedia (Stick Rules), update-interval=43200, enabled=true
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/Apple.list, tag=Apple (Stick Rules), update-interval=43200, enabled=true
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/Optional/ChatGPT.list, tag=ChatGPT (Stick Rules), update-interval=43200, enabled=false
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/Optional/TikTok.list, tag=TikTok (Stick Rules), update-interval=43200, enabled=false
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/Optional/Telegram.list, tag=Telegram (Stick Rules), update-interval=43200, enabled=false
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/Optional/PayPal.list, tag=PayPal (Stick Rules), update-interval=43200, enabled=false
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/Optional/Microsoft.list, tag=Microsoft (Stick Rules), update-interval=43200, enabled=false
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/Speedtest.list, tag=Speedtest (Stick Rules), update-interval=43200, enabled=true
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/Outside.list, tag=Outside (Stick Rules), update-interval=43200, enabled=true
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/Mainland.list, tag=Mainland (Stick Rules), update-interval=43200, enabled=true
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/Mainland%20ASN.list, tag=Mainland ASN (Stick Rules), update-interval=43200, enabled=true
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/LAN.list, tag=LAN (Stick Rules), update-interval=43200, enabled=true
+
+[rewrite_remote]
+# 默认未启用 TikTok 解锁订阅，如需使用请跳转到 https://github.com/Semporia/TikTok-Unlock/blob/master/README.md 查看详细使用说明
+# 如想更换 TikTok 区域，直接修改下方订阅中 -KR 为 -JP/-TW/-US 即可
+https://raw.githubusercontent.com/Semporia/TikTok-Unlock/master/Quantumult-X/TikTok-KR.conf, tag=TikTok (Semporia), update-interval=43200, enabled=false
+https://raw.githubusercontent.com/app2smile/rules/master/module/bilibili-qx.conf, tag=Bilibili Adblock (app2smile), update-interval=43200, enabled=true
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/zheye/zheye.snippet, tag=Zhihu Zheye (blackmatrix7), update-interval=43200, enabled=true
+https://raw.githubusercontent.com/NobyDa/Script/master/QuantumultX/TestFlightDownload.conf, tag=TFDownload (NobyDa), update-interval=43200, enabled=true
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Rewrite/Rewrite.list, tag=Rewrite (Stick Rules), update-interval=43200, enabled=true
+
+[server_local]
+
+
+[filter_local]
+final, Others
+
+[rewrite_local]
+# 微博去广告
+^https?://m?api\.weibo\.c(n|om)/2/(statuses/(unread|extend|positives/get|(friends|video)(/|_)timeline)|stories/(video_stream|home_list)|(groups|fangle)/timeline|profile/statuses|comments/build_comments|photo/recommend_list|service/picfeed|searchall|cardlist|page|\!/photos/pic_recommend_status) url script-response-body https://raw.githubusercontent.com/yichahucha/surge/master/wb_ad.js
+^https?://(sdk|wb)app\.uve\.weibo\.com(/interface/sdk/sdkad.php|/wbapplua/wbpullad.lua) url script-response-body https://raw.githubusercontent.com/yichahucha/surge/master/wb_launch.js
+
+[task_local]
+# GeoIP 查询
+event-interaction https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/geo_location.js, tag=GeoIP 查询, img-url=location.fill.viewfinder.system, enabled=true
+
+# 媒体解锁查询
+event-interaction https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/streaming-ui-check.js, tag=流媒体解锁查询, img-url=checkmark.seal.system, enabled=true
+
+[http_backend]
+
+
+[mitm]
+# 请在正式使用前将其他已信任证书的密码及 P12 填入下方，并删掉 passphrase 和 p12 前的分号
+# 或者前往设置界面生成、安装并信任新证书
+;passphrase =
+;p12 =
+;skip_validating_cert = false
+;force_sni_domain_name = false
+hostname =
