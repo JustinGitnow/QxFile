@@ -122,8 +122,8 @@ static=EU, server-tag-regex=France|Germany|Netherlands|Kingdom, img-url=https://
 # 日本
 static=JP, server-tag-regex=Japan, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/JP.png
 
-# CNmedia策略, 中国媒体, 网易云音乐包含在 CNmedia内
-static = CNmedia, CN, direct, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/StreamingCN.png
+# CMedia策略, 中国媒体, 网易云音乐包含在 CMedia内
+static = CMedia, CN, direct, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/StreamingCN.png
 # Mainland策略, Mainland 为大陆链接
 static=Mainland, CN, HK, US, EU, JP, direct, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/CN.png
 # 兜底分流
@@ -134,12 +134,12 @@ https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Unb
 https://anti-ad.net/surge2.txt, tag=广告终结者, force-policy=reject, update-interval=172800, opt-parser=true, enabled=true
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/China/China.list, tag=Mainland (Stick Rules), force-policy=Mainland, update-interval=43200, enabled=true
 https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/Mainland%20ASN.list, tag=Mainland ASN (Stick Rules), force-policy=Mainland, update-interval=43200, enabled=true
-https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/CMedia.list, tag=CNmedia (Stick Rules), uforce-policy=CNmedia, pdate-interval=43200, enabled=true
+https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/CMedia.list, tag=CMedia (Stick Rules), uforce-policy=CMedia, pdate-interval=43200, enabled=true
 https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/LAN.list, tag=LAN (Stick Rules), update-interval=43200, enabled=true
 
 
 [filter_local]
-host, myqnapcloud.com, CN
+HOST-SUFFIX, myqnapcloud.com, CN
 final, 兜底分流
 
 
