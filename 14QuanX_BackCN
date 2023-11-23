@@ -140,6 +140,7 @@ https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/LAN.lis
 
 [filter_local]
 HOST-SUFFIX, myqnapcloud.com, CN
+HOST-SUFFIX, youtech.myqnapcloud.com, CN
 final, 兜底分流
 
 
