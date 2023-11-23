@@ -15,30 +15,32 @@
 ; 「通知」栏中，建议仅开启[策略检测通知]和[脚本通知]开关，「VPN」栏中，建议关闭[兼容性增强]、[分流匹配优化]和[MPM]开关
 
 [general]
-# 网络测试链接
-network_check_url = http://www.apple.com/generate_204
-# 服务器测试链接
-server_check_url = http://www.gstatic.com/generate_204
-# 服务器测试超时时间 (毫秒)
+# > 用于节点延迟测试
+server_check_url= http://www.gstatic.com/generate_204
+# > 服务器测试超时时间 (毫秒)
 server_check_timeout = 3000
-# 如需识别节点地区为中文和显示国旗，请取消下面 geo_location_checker 前的 ; 备注
-geo_location_checker = http://ip-api.com/json/?lang=zh-CN, https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/IP_API.js
+# > 用于设置图标显示
+profile_img_url=https://github.githubassets.com/images/modules/site/integrators/google.png
+# > 用于Check节点IP地址(以下geo_location_checker任选一个即可)
+geo_location_checker=http://ip-api.com/json/?lang=zh-CN, https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/IP_API.js
+# > 功能强大的解析器，用于引用资源的转换
+resource_parser_url=https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/resource-parser.js
+# > 下列路径将不经过QuanX的处理
+excluded_routes=239.255.255.250/32, 24.105.30.129/32, 185.60.112.157/32, 185.60.112.158/32, 182.162.132.1/32
+udp_whitelist=1-442, 444-65535
 # > 第一个filter为4g模式开启规则分流，第二个filter为其他wifi下开启规则分流，第三个wifi1修改成你路由器翻墙的wifi名开启直连模式，第四个wifi2为你公司或者其他有路由器翻墙的WiFi名走直连）
 # > 默认关闭根据wifi切换模式，如需开启，删除下方的"#"即可
 #running_mode_trigger=filter, filter, wifi1:all_direct, wifi2: all_direct
-# 不使用 fakeip 映射
-dns_exclusion_list=*.cmbchina.com
-# 资源解析器
-resource_parser_url = https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/resource-parser.js
+# > dns_exclusion_list
+dns_exclusion_list=*.cmpassport.com, *.jegotrip.com.cn, *.icitymobile.mobi, id6.me, *.pingan.com.cn, *.cmbchina.com
 
 [task_local]
 # GeoIP 查询
 event-interaction https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/geo_location.js, tag=GeoIP 查询, img-url=location.fill.viewfinder.system, enabled=true
 
-# > 请手动添加下面的订阅（流媒体Task订阅集合）
-; https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/UI-Action.json
-# > 流媒体解锁查询
-event-interaction https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/streaming-ui-check.js, tag=流媒体解锁查询, img-url=arrowtriangle.right.square.system, enabled=true
+# 媒体解锁查询
+event-interaction https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/streaming-ui-check.js, tag=流媒体解锁查询, img-url=checkmark.seal.system, enabled=true
+
 
 
 [rewrite_local]
@@ -72,6 +74,7 @@ https://github.com/ddgksf2013/Rewrite/raw/master/Html/Douban.conf, tag=豆瓣电
 https://github.com/ddgksf2013/Rewrite/raw/master/AdBlock/XiaoHongShu.conf, tag=小红书净化+去水印@ddgksf2013, update-interval=86400, opt-parser=false, enabled=true
 https://gist.githubusercontent.com/ddgksf2013/f43026707830c7818ee3ba624e383c8d/raw/baiduCloud.vip.js, tag=百度网盘净化+倍速@ddgksf2013, update-interval=86400, opt-parser=true, enabled=true
 https://raw.githubusercontent.com/zZPiglet/Task/master/UnblockURLinWeChat.conf, tag=微信解锁被屏蔽的URL@zZPiglet, update-interval=86400, opt-parser=false, enabled=true
+https://raw.githubusercontent.com/Orz-3/QuantumultX/master/TikTok.conf, tag=Tiktok解锁[需旧版V21]@Orz-3, update-interval=86400, opt-parser=false, enabled=true
 https://raw.githubusercontent.com/DivineEngine/Profiles/master/Quantumult/Rewrite/General.conf, tag=神机重定向@DivineEngine, update-interval=86400, opt-parser=false, enabled=true
 
 # ======= 自行启用 ======= #
@@ -130,8 +133,11 @@ static=Mainland, CN, HK, US, EU, JP, direct, img-url=https://raw.githubuserconte
 static=兜底分流, CN, HK, US, EU, JP, direct, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/Final.png
 
 [filter_remote]
+
 https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Ruleset/Unbreak.list, tag=规则修正, force-policy=direct, update-interval=172800, opt-parser=true, enabled=true
-https://anti-ad.net/surge2.txt, tag=广告终结者, force-policy=reject, update-interval=172800, opt-parser=true, enabled=true
+# Advertising规则
+https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/Advertising/Advertising.list, tag=Advertising 规则, force-policy=Advertising, update-interval=86400, opt-parser=true, enabled=true
+
 https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/QuantumultX/China/China.list, tag=Mainland (Stick Rules), force-policy=Mainland, update-interval=43200, enabled=true
 https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/Mainland%20ASN.list, tag=Mainland ASN (Stick Rules), force-policy=Mainland, update-interval=43200, enabled=true
 https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/CMedia.list, tag=CMedia (Stick Rules), uforce-policy=CMedia, pdate-interval=43200, enabled=true
